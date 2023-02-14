@@ -1,0 +1,19 @@
+<svg width="8" height="19" viewBox="0 0 8 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 2H4V3V4H3V5H2V8H0V18H2V19H8V2Z" fill="#DDDDDD"/>
+<path d="M2 4H3V5H2V4Z" fill="white"/>
+<path d="M1 3H4V4H1V3Z" fill="#EEEEEE"/>
+<path d="M3 2H4V3H3V2Z" fill="white"/>
+<path d="M5 1H6V2H5V1Z" fill="white"/>
+<path d="M6 0H8V1H6V0Z" fill="#EEEEEE"/>
+<path d="M0 8H1V19H0V8Z" fill="white"/>
+<path d="M1 5H2V8H1V5Z" fill="white"/>
+<path d="M1 8H2V19H1V8Z" fill="#EEEEEE"/>
+<path d="M0 5H1V8H0V5Z" fill="#EEEEEE"/>
+<path d="M1 4H2V5H1V4Z" fill="#EEEEEE"/>
+<path d="M2 2H3V3H2V2Z" fill="#EEEEEE"/>
+<path d="M4 1H5V2H4V1Z" fill="#EEEEEE"/>
+<path d="M3 1H4V2H3V1Z" fill="#EEEEEE"/>
+<path d="M4 0H6V1H4V0Z" fill="#EEEEEE"/>
+<path d="M6 1H8V2H6V1Z" fill="#DDDDDD"/>
+<path d="M0 0H4V1H3V2H2V3H1V5H0V0Z" fill="black"/>
+</svg>
