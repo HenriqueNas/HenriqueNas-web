@@ -4,7 +4,9 @@
 
 html {
   @apply h-full;
+  font-family: "Geneva", sans-serif;
 }
 body {
   @apply h-full;
+  font-family: "Geneva", sans-serif;
 }
