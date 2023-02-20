@@ -10,5 +10,5 @@ body {
   @apply h-full;
   font-family: "Geneva", sans-serif;
   overflow: hidden;
-  cursor: url("../assets/cursors/arrow.png"), auto;
+  cursor: url("../assets/cursors/arrow.cur"), auto;
 }
