@@ -34,9 +34,8 @@ export default function Home() {
 
   const openProjects = () => setIsOpen(true)
 
-  const openResume = () =>
-    window.open(
-      'https://docs.google.com/document/d/1kzAp5xEKrExwRzLt7KsjMV0vvBZmrSyf6pgAoztXy54/edit?usp=sharing',
+  const openResume = () => window.open(
+      'https://resume.io/r/sVXCXqCEf',
       '_blank',
     )
 
