@@ -1,49 +1,49 @@
-import Image from 'next/image'
-import { Rnd } from 'react-rnd'
+import Image from 'next/image';
+import { Rnd } from 'react-rnd';
 
-import { ReactNode, useRef, useState } from 'react'
-import projects from '../assets/shortcuts/apple-folder.png'
+import { ReactNode, useRef, useState } from 'react';
+import projects from '../assets/shortcuts/apple-folder.png';
 
-import '../styles/global.css'
+import '../styles/global.css';
 
 const initialSize = {
   height: 500,
   width: 800,
-}
+};
 
 export default function ProjectsModal({
   closeModal,
 }: {
-  closeModal: () => void
+  closeModal: () => void;
 }) {
-  const [isDragging, setIsDragging] = useState(false)
-  const [isMaximized, setIsMaximized] = useState(false)
-  const ref = useRef<Rnd>(null)
+  const [isDragging, setIsDragging] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
+  const ref = useRef<Rnd>(null);
 
   function toggleSize() {
     if (isMaximized) {
       ref.current?.updateSize({
         height: initialSize.height,
         width: initialSize.width,
-      })
+      });
 
       ref.current?.updatePosition({
         y: initialSize.height / 3,
         x: initialSize.width / 2,
-      })
+      });
     } else {
       ref.current?.updateSize({
         height: parent.innerHeight - 22,
         width: parent.innerWidth,
-      })
+      });
 
       ref.current?.updatePosition({
         y: 0 + 22,
         x: 0,
-      })
+      });
     }
 
-    setIsMaximized(!isMaximized)
+    setIsMaximized(!isMaximized);
   }
 
   return (
@@ -105,15 +105,15 @@ export default function ProjectsModal({
         </div>
       </div>
     </Rnd>
-  )
+  );
 }
 
 function _Square({
   children,
   onClick,
 }: {
-  children?: ReactNode
-  onClick?: () => void
+  children?: ReactNode;
+  onClick?: () => void;
 }) {
   return (
     <div
@@ -126,7 +126,7 @@ function _Square({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function _Maximize({ onClick }: { onClick?: () => void }) {
@@ -139,7 +139,7 @@ function _Maximize({ onClick }: { onClick?: () => void }) {
       "
       />
     </_Square>
-  )
+  );
 }
 
 function _Close({ onClick }: { onClick?: () => void }) {
@@ -150,7 +150,7 @@ function _Close({ onClick }: { onClick?: () => void }) {
         <div className="h-[1px] bg-[#262626] w-full" />
       </div>
     </_Square>
-  )
+  );
 }
 
 function _Stripe() {
@@ -162,5 +162,5 @@ function _Stripe() {
       <div className="h-[2px] bg-[#999999]" />
       <div className="h-[2px] bg-[#999999]" />
     </div>
-  )
+  );
 }

@@ -1,19 +1,19 @@
-'use client'
+'use client';
 
-import Image, { StaticImageData } from 'next/image'
-import { useRef } from 'react'
+import Image, { StaticImageData } from 'next/image';
+import { useRef } from 'react';
 
 interface ShortcutProps {
-  image: StaticImageData
-  title: string
-  action?: () => void
+  image: StaticImageData;
+  title: string;
+  action?: () => void;
 }
 
 export default function Shortcut({ image, title, action }: ShortcutProps) {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null);
 
   function focusOnClick() {
-    ref?.current?.focus()
+    ref?.current?.focus();
   }
   return (
     <div
@@ -48,5 +48,5 @@ export default function Shortcut({ image, title, action }: ShortcutProps) {
         {title}
       </span>
     </div>
-  )
+  );
 }

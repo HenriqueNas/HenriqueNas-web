@@ -3,5 +3,5 @@ export default function Wed() {
     <main>
       <h1>Wed - A web Dart framework</h1>
     </main>
-  )
+  );
 }
