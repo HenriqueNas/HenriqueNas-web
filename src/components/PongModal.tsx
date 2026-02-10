@@ -1,7 +1,13 @@
 'use client';
 
 import { Rnd } from 'react-rnd';
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import '../styles/global.css';
 
@@ -112,106 +118,106 @@ export default function PongModal({ closeModal }: { closeModal: () => void }) {
     }
   }, []);
 
-  const tick = useCallback(() => {
-    const s = stateRef.current;
-    const keys = keysRef.current;
-    const ctx = canvasRef.current?.getContext('2d');
-    if (!ctx) return;
-
-    // paddle movement (always responsive)
-    let leftUp = false,
-      leftDown = false,
-      rightUp = false,
-      rightDown = false;
-    for (const k of keys) {
-      if (LEFT_UP.has(k)) leftUp = true;
-      if (LEFT_DOWN.has(k)) leftDown = true;
-      if (RIGHT_UP.has(k)) rightUp = true;
-      if (RIGHT_DOWN.has(k)) rightDown = true;
-    }
-    if (leftUp) s.leftY = Math.max(0, s.leftY - PADDLE_SPEED);
-    if (leftDown)
-      s.leftY = Math.min(CANVAS_H - PADDLE_H, s.leftY + PADDLE_SPEED);
-    if (rightUp) s.rightY = Math.max(0, s.rightY - PADDLE_SPEED);
-    if (rightDown)
-      s.rightY = Math.min(CANVAS_H - PADDLE_H, s.rightY + PADDLE_SPEED);
-
-    if (!s.paused && !s.winner) {
-      // ball movement
-      s.ballX += s.ballDX;
-      s.ballY += s.ballDY;
-
-      // top/bottom bounce
-      if (s.ballY - BALL_R <= 0 || s.ballY + BALL_R >= CANVAS_H) {
-        s.ballDY = -s.ballDY;
-        s.ballY = Math.max(BALL_R, Math.min(CANVAS_H - BALL_R, s.ballY));
-      }
-
-      // left paddle collision
-      if (
-        s.ballX - BALL_R <= 8 + PADDLE_W &&
-        s.ballY >= s.leftY &&
-        s.ballY <= s.leftY + PADDLE_H &&
-        s.ballDX < 0
-      ) {
-        const hitPos = (s.ballY - s.leftY) / PADDLE_H - 0.5;
-        const speed = Math.min(
-          Math.hypot(s.ballDX, s.ballDY) + 0.3,
-          MAX_BALL_SPEED,
-        );
-        s.ballDX = Math.abs(s.ballDX);
-        s.ballDY = hitPos * speed * 1.5;
-        const mag = Math.hypot(s.ballDX, s.ballDY);
-        s.ballDX = (s.ballDX / mag) * speed;
-        s.ballDY = (s.ballDY / mag) * speed;
-        s.ballX = 8 + PADDLE_W + BALL_R;
-      }
-
-      // right paddle collision
-      if (
-        s.ballX + BALL_R >= CANVAS_W - 8 - PADDLE_W &&
-        s.ballY >= s.rightY &&
-        s.ballY <= s.rightY + PADDLE_H &&
-        s.ballDX > 0
-      ) {
-        const hitPos = (s.ballY - s.rightY) / PADDLE_H - 0.5;
-        const speed = Math.min(
-          Math.hypot(s.ballDX, s.ballDY) + 0.3,
-          MAX_BALL_SPEED,
-        );
-        s.ballDX = -Math.abs(s.ballDX);
-        s.ballDY = hitPos * speed * 1.5;
-        const mag = Math.hypot(s.ballDX, s.ballDY);
-        s.ballDX = (s.ballDX / mag) * speed;
-        s.ballDY = (s.ballDY / mag) * speed;
-        s.ballX = CANVAS_W - 8 - PADDLE_W - BALL_R;
-      }
-
-      // scoring
-      if (s.ballX - BALL_R <= 0) {
-        s.scoreR++;
-        if (s.scoreR >= WINNING_SCORE) {
-          s.winner = 'Player 2';
-          forceRender((n) => n + 1);
-        } else {
-          resetBall(s);
-        }
-      } else if (s.ballX + BALL_R >= CANVAS_W) {
-        s.scoreL++;
-        if (s.scoreL >= WINNING_SCORE) {
-          s.winner = 'Player 1';
-          forceRender((n) => n + 1);
-        } else {
-          resetBall(s);
-        }
-      }
-    }
-
-    draw(ctx, s);
-    rafRef.current = requestAnimationFrame(tick);
-  }, [draw, resetBall]);
-
   useEffect(() => {
+    function tick() {
+      const s = stateRef.current;
+      const keys = keysRef.current;
+      const ctx = canvasRef.current?.getContext('2d');
+      if (!ctx) return;
+
+      // paddle movement (always responsive)
+      let leftUp = false,
+        leftDown = false,
+        rightUp = false,
+        rightDown = false;
+      for (const k of keys) {
+        if (LEFT_UP.has(k)) leftUp = true;
+        if (LEFT_DOWN.has(k)) leftDown = true;
+        if (RIGHT_UP.has(k)) rightUp = true;
+        if (RIGHT_DOWN.has(k)) rightDown = true;
+      }
+      if (leftUp) s.leftY = Math.max(0, s.leftY - PADDLE_SPEED);
+      if (leftDown)
+        s.leftY = Math.min(CANVAS_H - PADDLE_H, s.leftY + PADDLE_SPEED);
+      if (rightUp) s.rightY = Math.max(0, s.rightY - PADDLE_SPEED);
+      if (rightDown)
+        s.rightY = Math.min(CANVAS_H - PADDLE_H, s.rightY + PADDLE_SPEED);
+
+      if (!s.paused && !s.winner) {
+        // ball movement
+        s.ballX += s.ballDX;
+        s.ballY += s.ballDY;
+
+        // top/bottom bounce
+        if (s.ballY - BALL_R <= 0 || s.ballY + BALL_R >= CANVAS_H) {
+          s.ballDY = -s.ballDY;
+          s.ballY = Math.max(BALL_R, Math.min(CANVAS_H - BALL_R, s.ballY));
+        }
+
+        // left paddle collision
+        if (
+          s.ballX - BALL_R <= 8 + PADDLE_W &&
+          s.ballY >= s.leftY &&
+          s.ballY <= s.leftY + PADDLE_H &&
+          s.ballDX < 0
+        ) {
+          const hitPos = (s.ballY - s.leftY) / PADDLE_H - 0.5;
+          const speed = Math.min(
+            Math.hypot(s.ballDX, s.ballDY) + 0.3,
+            MAX_BALL_SPEED,
+          );
+          s.ballDX = Math.abs(s.ballDX);
+          s.ballDY = hitPos * speed * 1.5;
+          const mag = Math.hypot(s.ballDX, s.ballDY);
+          s.ballDX = (s.ballDX / mag) * speed;
+          s.ballDY = (s.ballDY / mag) * speed;
+          s.ballX = 8 + PADDLE_W + BALL_R;
+        }
+
+        // right paddle collision
+        if (
+          s.ballX + BALL_R >= CANVAS_W - 8 - PADDLE_W &&
+          s.ballY >= s.rightY &&
+          s.ballY <= s.rightY + PADDLE_H &&
+          s.ballDX > 0
+        ) {
+          const hitPos = (s.ballY - s.rightY) / PADDLE_H - 0.5;
+          const speed = Math.min(
+            Math.hypot(s.ballDX, s.ballDY) + 0.3,
+            MAX_BALL_SPEED,
+          );
+          s.ballDX = -Math.abs(s.ballDX);
+          s.ballDY = hitPos * speed * 1.5;
+          const mag = Math.hypot(s.ballDX, s.ballDY);
+          s.ballDX = (s.ballDX / mag) * speed;
+          s.ballDY = (s.ballDY / mag) * speed;
+          s.ballX = CANVAS_W - 8 - PADDLE_W - BALL_R;
+        }
+
+        // scoring
+        if (s.ballX - BALL_R <= 0) {
+          s.scoreR++;
+          if (s.scoreR >= WINNING_SCORE) {
+            s.winner = 'Player 2';
+            forceRender((n) => n + 1);
+          } else {
+            resetBall(s);
+          }
+        } else if (s.ballX + BALL_R >= CANVAS_W) {
+          s.scoreL++;
+          if (s.scoreL >= WINNING_SCORE) {
+            s.winner = 'Player 1';
+            forceRender((n) => n + 1);
+          } else {
+            resetBall(s);
+          }
+        }
+      }
+
+      draw(ctx, s);
+      rafRef.current = requestAnimationFrame(tick);
+    }
+
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = e.key.toLowerCase();
       keysRef.current.add(key);
@@ -242,7 +248,7 @@ export default function PongModal({ closeModal }: { closeModal: () => void }) {
       window.removeEventListener('keyup', handleKeyUp);
       cancelAnimationFrame(rafRef.current);
     };
-  }, [tick]);
+  }, [draw, resetBall]);
 
   return (
     <Rnd
@@ -272,12 +278,12 @@ export default function PongModal({ closeModal }: { closeModal: () => void }) {
         right: '!cursor-colResize',
       }}
     >
-      <div className="bg-[#CCCCCC] h-full border-[1px] border-gray-400 p-1 flex flex-col">
+      <div className="flex h-full flex-col border-[1px] border-gray-400 bg-[#CCCCCC] p-1">
         {/* Title bar */}
-        <div className="h-6 p-1 flex flex-row gap-1 items-center justify-between">
+        <div className="flex h-6 flex-row items-center justify-between gap-1 p-1">
           <_Square />
           <_Stripe />
-          <div className="flex flex-row gap-1 items-center mx-1">
+          <div className="mx-1 flex flex-row items-center gap-1">
             <span className="text-sm font-bold">Pong</span>
           </div>
           <_Stripe />
@@ -285,12 +291,12 @@ export default function PongModal({ closeModal }: { closeModal: () => void }) {
         </div>
 
         {/* Game canvas */}
-        <div className="flex-1 border-[2px] border-t-[#888] border-l-[#888] border-b-[#fff] border-r-[#fff] mt-1">
+        <div className="mt-1 flex-1 border-[2px] border-t-[#888] border-r-[#fff] border-b-[#fff] border-l-[#888]">
           <canvas
             ref={canvasRef}
             width={CANVAS_W}
             height={CANVAS_H}
-            className="block w-full h-full !cursor-default"
+            className="block h-full w-full !cursor-default"
           />
         </div>
       </div>
@@ -308,10 +314,10 @@ function _Square({
   return (
     <div
       onClick={onClick}
-      className="h-4 w-4 border-[1px] border-t-[#262626] border-l-[#262626] bg-gradient-to-br from-[#9A9A9A] to-[#F1F1F1] cursor-pointer"
+      className="h-4 w-4 cursor-pointer border-[1px] border-t-[#262626] border-l-[#262626] bg-gradient-to-br from-[#9A9A9A] to-[#F1F1F1]"
     >
-      <div className="border-[1px] border-[#262626] h-full">
-        <div className="border-[1px] border-b-[#262626] border-r-[#262626] h-full flex flex-col">
+      <div className="h-full border-[1px] border-[#262626]">
+        <div className="flex h-full flex-col border-[1px] border-r-[#262626] border-b-[#262626]">
           {children}
         </div>
       </div>
@@ -322,9 +328,9 @@ function _Square({
 function _Close({ onClick }: { onClick?: () => void }) {
   return (
     <_Square onClick={onClick}>
-      <div className="relative left-[-2px] h-4 w-3 flex flex-col items-center justify-center gap-[2px]">
-        <div className="h-[1px] bg-[#262626] w-full" />
-        <div className="h-[1px] bg-[#262626] w-full" />
+      <div className="relative left-[-2px] flex h-4 w-3 flex-col items-center justify-center gap-[2px]">
+        <div className="h-[1px] w-full bg-[#262626]" />
+        <div className="h-[1px] w-full bg-[#262626]" />
       </div>
     </_Square>
   );
@@ -332,7 +338,7 @@ function _Close({ onClick }: { onClick?: () => void }) {
 
 function _Stripe() {
   return (
-    <div className="flex-grow h-4 bg-[#ddd] flex flex-col justify-evenly">
+    <div className="flex h-4 flex-grow flex-col justify-evenly bg-[#ddd]">
       <div className="h-[2px] bg-[#999999]" />
       <div className="h-[2px] bg-[#999999]" />
       <div className="h-[2px] bg-[#999999]" />

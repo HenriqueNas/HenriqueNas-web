@@ -10,7 +10,12 @@ import apple from '../assets/top_bar/apple-logo.png';
 type _ClassName = HTMLAttributes<HTMLDivElement>['className'];
 
 type MenuItem =
-  | { label: string; shortcut?: string; disabled?: boolean; action?: () => void }
+  | {
+      label: string;
+      shortcut?: string;
+      disabled?: boolean;
+      action?: () => void;
+    }
   | 'separator';
 
 export interface TopBarProps {
@@ -122,7 +127,7 @@ export default function TopBar({
     },
     'separator',
     { label: 'Built with Next.js', disabled: true },
-    { label: 'Version 0.1.0', disabled: true },
+    { label: 'Version 0.1.1', disabled: true },
   ];
 
   const viewMenuItems: MenuItem[] = [
@@ -140,13 +145,10 @@ export default function TopBar({
   return (
     <nav
       ref={navRef}
-      className="
-        w-full h-6 bg-[#ddd]
-        border-black border-t-[1px] border-t-white border-b-2 before:border-b-2 before:border-white
-        flex items-center relative z-50"
+      className="relative z-50 flex h-6 w-full items-center border-t-[1px] border-b-2 border-black border-t-white bg-[#ddd] before:border-b-2 before:border-white"
     >
-      <Image src={left} alt="" className="absolute left-0 top-0" />
-      <Image src={right} alt="" className="absolute right-0 top-0" />
+      <Image src={left} alt="" className="absolute top-0 left-0" />
+      <Image src={right} alt="" className="absolute top-0 right-0" />
       <_TopBarItem
         className="ml-3"
         onClick={() => new Audio('/macbook-startup.mp3').play()}
@@ -195,45 +197,27 @@ function _TopBarDropdown({
     <div className="relative" onMouseEnter={onHover}>
       <div
         onClick={onClick}
-        className={`
-          h-6 px-2
-          flex items-center justify-center
-          cursor-pointer select-none
-          ${isOpen ? 'bg-[#333399] text-white' : 'hover:bg-[#333399] hover:text-white'}
-        `}
+        className={`flex h-6 cursor-pointer items-center justify-center px-2 select-none ${isOpen ? 'bg-[#333399] text-white' : 'hover:bg-[#333399] hover:text-white'} `}
       >
         {label}
       </div>
       {isOpen && (
-        <div
-          className="
-            absolute top-6 left-0
-            min-w-[200px]
-            bg-[#CCCCCC]
-            border-[1px] border-t-[#fff] border-l-[#fff] border-b-[#555] border-r-[#555]
-            shadow-[2px_2px_0px_#555]
-            py-[2px]
-          "
-        >
+        <div className="absolute top-6 left-0 min-w-[200px] border-[1px] border-t-[#fff] border-r-[#555] border-b-[#555] border-l-[#fff] bg-[#CCCCCC] py-[2px] shadow-[2px_2px_0px_#555]">
           {items.map((item, i) =>
             item === 'separator' ? (
               <div
                 key={`sep-${i}`}
-                className="mx-1 my-[2px] border-t-[1px] border-t-[#888] border-b-[1px] border-b-[#fff]"
+                className="mx-1 my-[2px] border-t-[1px] border-b-[1px] border-t-[#888] border-b-[#fff]"
               />
             ) : (
               <div
                 key={item.label}
                 onClick={!item.disabled ? item.action : undefined}
-                className={`
-                  px-4 py-[2px]
-                  flex items-center justify-between gap-4
-                  ${
-                    item.disabled
-                      ? 'text-[#888] cursor-default'
-                      : 'hover:bg-[#333399] hover:text-white cursor-default'
-                  }
-                `}
+                className={`flex items-center justify-between gap-4 px-4 py-[2px] ${
+                  item.disabled
+                    ? 'cursor-default text-[#888]'
+                    : 'cursor-default hover:bg-[#333399] hover:text-white'
+                } `}
               >
                 <span>{item.label}</span>
                 {item.shortcut && (
@@ -262,13 +246,7 @@ function _TopBarItem({
   return (
     <div
       onClick={onClick}
-      className={`
-        ${className}
-        h-6 p-2
-        flex items-center justify-center
-        hover:bg-[#333399] hover:text-white
-        cursor-pointer
-      `}
+      className={` ${className} flex h-6 cursor-pointer items-center justify-center p-2 hover:bg-[#333399] hover:text-white`}
     >
       {children}
     </div>

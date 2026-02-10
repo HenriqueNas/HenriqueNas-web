@@ -1,13 +1,47 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --animate-fadeIn: fadeIn 0.2s ease-out;
+
+  --cursor-move: url('../assets/cursors/grab.cur'), move;
+  --cursor-grab: url('../assets/cursors/grab.cur'), grab;
+  --cursor-grabbing: url('../assets/cursors/grabbing.cur'), grabbing;
+  --cursor-pointer: url('../assets/cursors/pointer.cur'), none;
+  --cursor-notAllowed: url('../assets/cursors/not-allowed.cur'), not-allowed;
+  --cursor-progress: url('../assets/cursors/progress.cur'), progress;
+  --cursor-wait: url('../assets/cursors/wait.png'), wait;
+  --cursor-text: url('../assets/cursors/text.cur'), text;
+  --cursor-colResize: url('../assets/cursors/col-resize.cur'), col-resize;
+  --cursor-rowResize: url('../assets/cursors/row-resize.cur'), row-resize;
+  --cursor-allScroll: url('../assets/cursors/grab.cur'), all-scroll;
+  --cursor-neswResize: url('../assets/cursors/diagonal-tr-bl.cur'), nesw-resize;
+  --cursor-nwseResize: url('../assets/cursors/diagonal-tl-br.cur'), nwse-resize;
+  --cursor-wResize: url('../assets/cursors/col-resize.cur'), w-resize;
+  --cursor-eResize: url('../assets/cursors/col-resize.cur'), e-resize;
+  --cursor-nResize: url('../assets/cursors/row-resize.cur'), n-resize;
+  --cursor-sResize: url('../assets/cursors/row-resize.cur'), s-resize;
+  --cursor-nsResize: url('../assets/cursors/row-resize.cur'), ns-resize;
+  --cursor-ewResize: url('../assets/cursors/col-resize.cur'), ew-resize;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
 
 html {
-  @apply h-full;
+  height: 100%;
   font-family: 'Geneva', sans-serif;
 }
+
 body {
-  @apply h-full;
+  height: 100%;
   font-family: 'Geneva', sans-serif;
   overflow: hidden;
   cursor: url('../assets/cursors/arrow.cur'), auto;

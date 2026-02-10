@@ -116,12 +116,12 @@ export default function CalculatorModal({
         right: '!cursor-colResize',
       }}
     >
-      <div className="bg-[#CCCCCC] h-full border-[1px] border-gray-400 p-1 flex flex-col">
+      <div className="flex h-full flex-col border-[1px] border-gray-400 bg-[#CCCCCC] p-1">
         {/* Title bar */}
-        <div className="h-6 p-1 flex flex-row gap-1 items-center justify-between">
+        <div className="flex h-6 flex-row items-center justify-between gap-1 p-1">
           <_Square />
           <_Stripe />
-          <div className="flex flex-row gap-1 items-center mx-1">
+          <div className="mx-1 flex flex-row items-center gap-1">
             <span className="text-sm font-bold">Calculator</span>
           </div>
           <_Stripe />
@@ -129,12 +129,12 @@ export default function CalculatorModal({
         </div>
 
         {/* Display */}
-        <div className="bg-white border-[2px] border-t-[#888] border-l-[#888] border-b-[#fff] border-r-[#fff] mt-1 px-2 py-1 text-right text-2xl font-mono !cursor-default select-all overflow-hidden">
+        <div className="mt-1 !cursor-default overflow-hidden border-[2px] border-t-[#888] border-r-[#fff] border-b-[#fff] border-l-[#888] bg-white px-2 py-1 text-right font-mono text-2xl select-all">
           {display}
         </div>
 
         {/* Buttons */}
-        <div className="flex-1 grid grid-cols-4 gap-[2px] mt-1 !cursor-default">
+        <div className="mt-1 grid flex-1 !cursor-default grid-cols-4 gap-[2px]">
           <_Btn label="C" onClick={clearAll} variant="top" />
           <_Btn label="+/-" onClick={toggleSign} variant="top" />
           <_Btn label="%" onClick={handlePercent} variant="top" />
@@ -228,10 +228,10 @@ function _Square({
   return (
     <div
       onClick={onClick}
-      className="h-4 w-4 border-[1px] border-t-[#262626] border-l-[#262626] bg-gradient-to-br from-[#9A9A9A] to-[#F1F1F1] cursor-pointer"
+      className="h-4 w-4 cursor-pointer border-[1px] border-t-[#262626] border-l-[#262626] bg-gradient-to-br from-[#9A9A9A] to-[#F1F1F1]"
     >
-      <div className="border-[1px] border-[#262626] h-full">
-        <div className="border-[1px] border-b-[#262626] border-r-[#262626] h-full flex flex-col">
+      <div className="h-full border-[1px] border-[#262626]">
+        <div className="flex h-full flex-col border-[1px] border-r-[#262626] border-b-[#262626]">
           {children}
         </div>
       </div>
@@ -242,9 +242,9 @@ function _Square({
 function _Close({ onClick }: { onClick?: () => void }) {
   return (
     <_Square onClick={onClick}>
-      <div className="relative left-[-2px] h-4 w-3 flex flex-col items-center justify-center gap-[2px]">
-        <div className="h-[1px] bg-[#262626] w-full" />
-        <div className="h-[1px] bg-[#262626] w-full" />
+      <div className="relative left-[-2px] flex h-4 w-3 flex-col items-center justify-center gap-[2px]">
+        <div className="h-[1px] w-full bg-[#262626]" />
+        <div className="h-[1px] w-full bg-[#262626]" />
       </div>
     </_Square>
   );
@@ -252,7 +252,7 @@ function _Close({ onClick }: { onClick?: () => void }) {
 
 function _Stripe() {
   return (
-    <div className="flex-grow h-4 bg-[#ddd] flex flex-col justify-evenly">
+    <div className="flex h-4 flex-grow flex-col justify-evenly bg-[#ddd]">
       <div className="h-[2px] bg-[#999999]" />
       <div className="h-[2px] bg-[#999999]" />
       <div className="h-[2px] bg-[#999999]" />

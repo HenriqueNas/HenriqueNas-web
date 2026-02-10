@@ -117,8 +117,8 @@ export default function GitHubModal({
         height: initialSize.height,
         width: initialSize.width,
       }}
-      className={`border-[1px] border-[#262626] ${
-        isDragging ? '!cursor-grabbing' : '!cursor-grab'
+      className={`border border-[#262626] ${
+        isDragging ? 'cursor-grabbing!' : 'cursor-grab!'
       } !active:cursor-grabbing`}
       bounds="parent"
       resizeHandleClasses={{
@@ -132,26 +132,12 @@ export default function GitHubModal({
         right: '!cursor-colResize',
       }}
     >
-      <div
-        className="
-        bg-[#CCCCCC]
-        h-full
-        border-[1px] border-gray-400
-        p-1
-        flex flex-col
-      "
-      >
+      <div className="flex h-full flex-col border border-gray-400 bg-[#CCCCCC] p-1">
         {/* Title bar */}
-        <div
-          className="
-          h-6 p-1
-          flex flex-row gap-1
-          items-center justify-between
-        "
-        >
+        <div className="flex h-6 flex-row items-center justify-between gap-1 p-1">
           <_Square />
           <_Stripe />
-          <div className="flex flex-row gap-1 items-center mx-1">
+          <div className="mx-1 flex flex-row items-center gap-1">
             <Image src={github} alt="GitHub logo" className="h-5 w-5" />
             <span>GitHub</span>
           </div>
@@ -161,25 +147,28 @@ export default function GitHubModal({
         </div>
 
         {/* Content */}
-        <div className="flex-1 bg-white border-[2px] border-t-[#888] border-l-[#888] border-b-[#fff] border-r-[#fff] mt-1 overflow-auto p-3 flex flex-col gap-3 !cursor-default">
+        <div className="mt-1 flex flex-1 cursor-default! flex-col gap-3 overflow-auto border-2 border-t-[#888] border-r-white border-b-white border-l-[#888] bg-white p-3">
           {/* Profile section */}
-          <div className="flex flex-row gap-3 items-center">
-            <img
+          <div className="flex flex-row items-center gap-3">
+            <Image
               src={profile.avatarUrl}
               alt="GitHub avatar"
-              className="h-20 w-20 border-[1px] border-[#262626]"
+              width={80}
+              height={80}
+              className="h-20 w-20 border border-[#262626]"
+              unoptimized
             />
             <div className="flex flex-col gap-1">
               <a
                 href={profile.profileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-bold text-[#0000EE] underline text-lg hover:text-[#551A8B]"
+                className="text-lg font-bold text-[#0000EE] underline hover:text-[#551A8B]"
               >
                 {profile.name}
               </a>
               <span className="text-base text-[#333]">{profile.bio}</span>
-              <div className="flex flex-row gap-3 text-sm text-[#555] mt-1">
+              <div className="mt-1 flex flex-row gap-3 text-sm text-[#555]">
                 <span>{profile.company}</span>
                 <span>{profile.location}</span>
               </div>
@@ -191,10 +180,10 @@ export default function GitHubModal({
             </div>
           </div>
 
-          <div className="h-[1px] bg-[#999]" />
+          <div className="h-px bg-[#999]" />
 
           {/* Repos header */}
-          <span className="font-bold text-base text-[#333]">
+          <span className="text-base font-bold text-[#333]">
             Top Repositories
           </span>
 
@@ -203,14 +192,14 @@ export default function GitHubModal({
             {topRepos.map((repo) => (
               <div
                 key={repo.name}
-                className="border-[1px] border-[#ccc] bg-[#F5F5F5] p-2 flex flex-col gap-1"
+                className="flex flex-col gap-1 border border-[#ccc] bg-[#F5F5F5] p-2"
               >
                 <div className="flex flex-row items-center justify-between">
                   <a
                     href={repo.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-bold text-[#0000EE] underline text-base hover:text-[#551A8B]"
+                    className="text-base font-bold text-[#0000EE] underline hover:text-[#551A8B]"
                   >
                     {repo.name}
                   </a>
@@ -242,10 +231,10 @@ function _Square({
   return (
     <div
       onClick={onClick}
-      className="h-4 w-4 border-[1px] border-t-[#262626] border-l-[#262626] bg-gradient-to-br from-[#9A9A9A] to-[#F1F1F1] cursor-pointer"
+      className="h-4 w-4 cursor-pointer border border-t-[#262626] border-l-[#262626] bg-linear-to-br from-[#9A9A9A] to-[#F1F1F1]"
     >
-      <div className="border-[1px] border-[#262626] h-full">
-        <div className="border-[1px] border-b-[#262626] border-r-[#262626] h-full flex flex-col">
+      <div className="h-full border border-[#262626]">
+        <div className="flex h-full flex-col border border-r-[#262626] border-b-[#262626]">
           {children}
         </div>
       </div>
@@ -256,12 +245,7 @@ function _Square({
 function _Maximize({ onClick }: { onClick?: () => void }) {
   return (
     <_Square onClick={onClick}>
-      <div
-        className="
-        relative top-[-2px] left-[-2px]
-        h-[0.55rem] w-[0.55rem] border-b-[2px] border-r-[2px] border-[#262626]
-      "
-      />
+      <div className="relative -top-0.5 -left-0.5 h-[0.55rem] w-[0.55rem] border-r-2 border-b-2 border-[#262626]" />
     </_Square>
   );
 }
@@ -269,9 +253,9 @@ function _Maximize({ onClick }: { onClick?: () => void }) {
 function _Close({ onClick }: { onClick?: () => void }) {
   return (
     <_Square onClick={onClick}>
-      <div className="relative left-[-2px] h-4 w-3 flex flex-col items-center justify-center gap-[2px]">
-        <div className="h-[1px] bg-[#262626] w-full" />
-        <div className="h-[1px] bg-[#262626] w-full" />
+      <div className="relative -left-0.5 flex h-4 w-3 flex-col items-center justify-center gap-0.5">
+        <div className="h-px w-full bg-[#262626]" />
+        <div className="h-px w-full bg-[#262626]" />
       </div>
     </_Square>
   );
@@ -279,12 +263,12 @@ function _Close({ onClick }: { onClick?: () => void }) {
 
 function _Stripe() {
   return (
-    <div className="flex-grow h-4 bg-[#ddd] flex flex-col justify-evenly">
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
+    <div className="flex h-4 grow flex-col justify-evenly bg-[#ddd]">
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
     </div>
   );
 }

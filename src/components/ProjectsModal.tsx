@@ -74,24 +74,11 @@ export default function ProjectsModal({
         right: '!cursor-colResize',
       }}
     >
-      <div
-        className="
-        bg-[#CCCCCC]
-        h-full
-        border-[1px] border-gray-400
-        p-1
-      "
-      >
-        <div
-          className="
-          h-6 p-1
-          flex flex-row gap-1
-          items-center justify-between
-        "
-        >
+      <div className="h-full border-[1px] border-gray-400 bg-[#CCCCCC] p-1">
+        <div className="flex h-6 flex-row items-center justify-between gap-1 p-1">
           <_Square />
           <_Stripe />
-          <div className="flex flex-row gap-1 items-center mx-1">
+          <div className="mx-1 flex flex-row items-center gap-1">
             <Image
               src={projects}
               alt={`Folder with apple logo`}
@@ -118,10 +105,10 @@ function _Square({
   return (
     <div
       onClick={onClick}
-      className="h-4 w-4 border-[1px] border-t-[#262626] border-l-[#262626] bg-gradient-to-br from-[#9A9A9A] to-[#F1F1F1] cursor-pointer"
+      className="h-4 w-4 cursor-pointer border-[1px] border-t-[#262626] border-l-[#262626] bg-gradient-to-br from-[#9A9A9A] to-[#F1F1F1]"
     >
-      <div className="border-[1px] border-[#262626] h-full">
-        <div className="border-[1px] border-b-[#262626] border-r-[#262626] h-full flex flex-col">
+      <div className="h-full border-[1px] border-[#262626]">
+        <div className="flex h-full flex-col border-[1px] border-r-[#262626] border-b-[#262626]">
           {children}
         </div>
       </div>
@@ -132,12 +119,7 @@ function _Square({
 function _Maximize({ onClick }: { onClick?: () => void }) {
   return (
     <_Square onClick={onClick}>
-      <div
-        className="
-        relative top-[-2px] left-[-2px] 
-        h-[0.55rem] w-[0.55rem] border-b-[2px] border-r-[2px] border-[#262626]
-      "
-      />
+      <div className="relative top-[-2px] left-[-2px] h-[0.55rem] w-[0.55rem] border-r-[2px] border-b-[2px] border-[#262626]" />
     </_Square>
   );
 }
@@ -145,9 +127,9 @@ function _Maximize({ onClick }: { onClick?: () => void }) {
 function _Close({ onClick }: { onClick?: () => void }) {
   return (
     <_Square onClick={onClick}>
-      <div className="relative left-[-2px] h-4 w-3 flex flex-col items-center justify-center gap-[2px]">
-        <div className="h-[1px] bg-[#262626] w-full" />
-        <div className="h-[1px] bg-[#262626] w-full" />
+      <div className="relative left-[-2px] flex h-4 w-3 flex-col items-center justify-center gap-[2px]">
+        <div className="h-[1px] w-full bg-[#262626]" />
+        <div className="h-[1px] w-full bg-[#262626]" />
       </div>
     </_Square>
   );
@@ -155,7 +137,7 @@ function _Close({ onClick }: { onClick?: () => void }) {
 
 function _Stripe() {
   return (
-    <div className="flex-grow h-4  bg-[#ddd] flex flex-col justify-evenly">
+    <div className="flex h-4 flex-grow flex-col justify-evenly bg-[#ddd]">
       <div className="h-[2px] bg-[#999999]" />
       <div className="h-[2px] bg-[#999999]" />
       <div className="h-[2px] bg-[#999999]" />

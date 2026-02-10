@@ -6,6 +6,7 @@ import PongModal from '@/components/PongModal';
 import ProjectsModal from '@/components/ProjectsModal';
 import Shortcut from '@/components/Shortcut';
 import TopBar from '@/components/TopBar';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { useRef, useState } from 'react';
 
 import projects from '../assets/shortcuts/apple-folder.png';
@@ -18,8 +19,9 @@ import youtube from '../assets/shortcuts/youtube.png';
 
 export default function Home() {
   const ref = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [githubModalIsOpen, setGithubModalIsOpen] = useState(true);
+  const [githubModalIsOpen, setGithubModalIsOpen] = useState(!isMobile);
   const [calcIsOpen, setCalcIsOpen] = useState(false);
   const [pongIsOpen, setPongIsOpen] = useState(false);
 
@@ -52,14 +54,20 @@ export default function Home() {
 
   return (
     <>
-      <TopBar
-        onOpenCalc={() => setCalcIsOpen(true)}
-        onOpenPong={() => setPongIsOpen(true)}
-        onOpenGithub={openGithub}
-      />
+      {!isMobile && (
+        <TopBar
+          onOpenCalc={() => setCalcIsOpen(true)}
+          onOpenPong={() => setPongIsOpen(true)}
+          onOpenGithub={openGithub}
+        />
+      )}
       <main
         ref={ref}
-        className="p-4 flex-1 flex flex-col flex-wrap content-start gap-2 overflow-hidden relative"
+        className={
+          isMobile
+            ? 'flex flex-1 flex-col items-center gap-2 overflow-auto p-4'
+            : 'relative flex flex-1 flex-col flex-wrap content-start gap-2 overflow-hidden p-4'
+        }
       >
         <Shortcut image={github} title="Github" action={openGithub} />
         <Shortcut image={projects} title="Projects" action={openProjects} />
@@ -69,54 +77,48 @@ export default function Home() {
         <Shortcut image={web} title="Internet" action={openGoogle} />
         <Shortcut image={figma} title="Figma" action={openFigma} />
 
-        {/* Calculator desktop icon */}
-        <div
-          onClick={() => setCalcIsOpen(true)}
-          onDoubleClick={() => setCalcIsOpen(true)}
-          tabIndex={0}
-          className="
-            w-20 h-20 m-2
-            flex flex-col items-center justify-center
-            bg-transparent cursor-pointer
-            hover:filter hover:brightness-75
-            focus:brightness-50 focus:outline-dashed focus:outline-1 focus:outline-indigo-grey
-          "
-        >
-          <div className="w-10 h-10 bg-[#CCCCCC] border-[1px] border-t-[#fff] border-l-[#fff] border-b-[#888] border-r-[#888] flex items-center justify-center text-lg font-mono font-bold text-[#333]">
-            42
-          </div>
-          <span className="flex items-center justify-center mt-2 px-2 bg-[#FFF]/40 text-black text-xl">
-            Calc
-          </span>
-        </div>
+        {!isMobile && (
+          <>
+            {/* Calculator desktop icon */}
+            <div
+              onClick={() => setCalcIsOpen(true)}
+              onDoubleClick={() => setCalcIsOpen(true)}
+              tabIndex={0}
+              className="focus:outline-indigo-grey m-2 flex h-20 w-20 cursor-pointer flex-col items-center justify-center bg-transparent hover:brightness-75 hover:filter focus:outline-1 focus:brightness-50 focus:outline-dashed"
+            >
+              <div className="flex h-10 w-10 items-center justify-center border-[1px] border-t-[#fff] border-r-[#888] border-b-[#888] border-l-[#fff] bg-[#CCCCCC] font-mono text-lg font-bold text-[#333]">
+                42
+              </div>
+              <span className="mt-2 flex items-center justify-center bg-[#FFF]/40 px-2 text-xl text-black">
+                Calc
+              </span>
+            </div>
 
-        {/* Pong desktop icon */}
-        <div
-          onClick={() => setPongIsOpen(true)}
-          onDoubleClick={() => setPongIsOpen(true)}
-          tabIndex={0}
-          className="
-            w-20 h-20 m-2
-            flex flex-col items-center justify-center
-            bg-transparent cursor-pointer
-            hover:filter hover:brightness-75
-            focus:brightness-50 focus:outline-dashed focus:outline-1 focus:outline-indigo-grey
-          "
-        >
-          <div className="w-10 h-10 bg-[#1a1a2e] border-[1px] border-t-[#fff] border-l-[#fff] border-b-[#888] border-r-[#888] flex items-center justify-center text-xs font-mono font-bold text-[#CCCCCC]">
-            PONG
-          </div>
-          <span className="flex items-center justify-center mt-2 px-2 bg-[#FFF]/40 text-black text-xl">
-            Pong
-          </span>
-        </div>
+            {/* Pong desktop icon */}
+            <div
+              onClick={() => setPongIsOpen(true)}
+              onDoubleClick={() => setPongIsOpen(true)}
+              tabIndex={0}
+              className="focus:outline-indigo-grey m-2 flex h-20 w-20 cursor-pointer flex-col items-center justify-center bg-transparent hover:brightness-75 hover:filter focus:outline-1 focus:brightness-50 focus:outline-dashed"
+            >
+              <div className="flex h-10 w-10 items-center justify-center border-[1px] border-t-[#fff] border-r-[#888] border-b-[#888] border-l-[#fff] bg-[#1a1a2e] font-mono text-xs font-bold text-[#CCCCCC]">
+                PONG
+              </div>
+              <span className="mt-2 flex items-center justify-center bg-[#FFF]/40 px-2 text-xl text-black">
+                Pong
+              </span>
+            </div>
 
-        {modalIsOpen && <ProjectsModal closeModal={closeModal} />}
-        {githubModalIsOpen && <GitHubModal closeModal={closeGithubModal} />}
-        {calcIsOpen && (
-          <CalculatorModal closeModal={() => setCalcIsOpen(false)} />
+            {modalIsOpen && <ProjectsModal closeModal={closeModal} />}
+            {githubModalIsOpen && <GitHubModal closeModal={closeGithubModal} />}
+            {calcIsOpen && (
+              <CalculatorModal closeModal={() => setCalcIsOpen(false)} />
+            )}
+            {pongIsOpen && (
+              <PongModal closeModal={() => setPongIsOpen(false)} />
+            )}
+          </>
         )}
-        {pongIsOpen && <PongModal closeModal={() => setPongIsOpen(false)} />}
       </main>
     </>
   );
