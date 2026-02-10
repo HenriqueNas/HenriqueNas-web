@@ -59,8 +59,8 @@ export default function ProjectsModal({
         height: initialSize.height,
         width: initialSize.width,
       }}
-      className={`border-[1px] border-[#262626] ${
-        isDragging ? '!cursor-grabbing' : '!cursor-grab'
+      className={`border border-[#262626] ${
+        isDragging ? 'cursor-grabbing!' : 'cursor-grab!'
       } !active:cursor-grabbing`}
       bounds="parent"
       resizeHandleClasses={{
@@ -74,7 +74,7 @@ export default function ProjectsModal({
         right: '!cursor-colResize',
       }}
     >
-      <div className="h-full border-[1px] border-gray-400 bg-[#CCCCCC] p-1">
+      <div className="h-full border border-gray-400 bg-[#CCCCCC] p-1">
         <div className="flex h-6 flex-row items-center justify-between gap-1 p-1">
           <_Square />
           <_Stripe />
@@ -105,10 +105,10 @@ function _Square({
   return (
     <div
       onClick={onClick}
-      className="h-4 w-4 cursor-pointer border-[1px] border-t-[#262626] border-l-[#262626] bg-gradient-to-br from-[#9A9A9A] to-[#F1F1F1]"
+      className="h-4 w-4 cursor-pointer border border-t-[#262626] border-l-[#262626] bg-linear-to-br from-[#9A9A9A] to-[#F1F1F1]"
     >
-      <div className="h-full border-[1px] border-[#262626]">
-        <div className="flex h-full flex-col border-[1px] border-r-[#262626] border-b-[#262626]">
+      <div className="h-full border border-[#262626]">
+        <div className="flex h-full flex-col border border-r-[#262626] border-b-[#262626]">
           {children}
         </div>
       </div>
@@ -119,7 +119,7 @@ function _Square({
 function _Maximize({ onClick }: { onClick?: () => void }) {
   return (
     <_Square onClick={onClick}>
-      <div className="relative top-[-2px] left-[-2px] h-[0.55rem] w-[0.55rem] border-r-[2px] border-b-[2px] border-[#262626]" />
+      <div className="relative -top-0.5 -left-0.5 h-[0.55rem] w-[0.55rem] border-r-2 border-b-2 border-[#262626]" />
     </_Square>
   );
 }
@@ -127,9 +127,9 @@ function _Maximize({ onClick }: { onClick?: () => void }) {
 function _Close({ onClick }: { onClick?: () => void }) {
   return (
     <_Square onClick={onClick}>
-      <div className="relative left-[-2px] flex h-4 w-3 flex-col items-center justify-center gap-[2px]">
-        <div className="h-[1px] w-full bg-[#262626]" />
-        <div className="h-[1px] w-full bg-[#262626]" />
+      <div className="relative -left-0.5 flex h-4 w-3 flex-col items-center justify-center gap-0.5">
+        <div className="h-px w-full bg-[#262626]" />
+        <div className="h-px w-full bg-[#262626]" />
       </div>
     </_Square>
   );
@@ -137,12 +137,12 @@ function _Close({ onClick }: { onClick?: () => void }) {
 
 function _Stripe() {
   return (
-    <div className="flex h-4 flex-grow flex-col justify-evenly bg-[#ddd]">
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
+    <div className="flex-gcrow flex h-4 flex-col justify-evenly bg-[#ddd]">
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
     </div>
   );
 }

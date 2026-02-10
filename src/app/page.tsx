@@ -16,6 +16,8 @@ import web from '../assets/shortcuts/globe.png';
 import linkedin from '../assets/shortcuts/linkedin.png';
 import resume from '../assets/shortcuts/sheet.png';
 import youtube from '../assets/shortcuts/youtube.png';
+import calcIcon from '../assets/icons/Applications/Calculator.png';
+import pongIcon from '../assets/icons/Applications/Key caps.png';
 
 export default function Home() {
   const ref = useRef<HTMLElement>(null);
@@ -79,35 +81,16 @@ export default function Home() {
 
         {!isMobile && (
           <>
-            {/* Calculator desktop icon */}
-            <div
-              onClick={() => setCalcIsOpen(true)}
-              onDoubleClick={() => setCalcIsOpen(true)}
-              tabIndex={0}
-              className="focus:outline-indigo-grey m-2 flex h-20 w-20 cursor-pointer flex-col items-center justify-center bg-transparent hover:brightness-75 hover:filter focus:outline-1 focus:brightness-50 focus:outline-dashed"
-            >
-              <div className="flex h-10 w-10 items-center justify-center border-[1px] border-t-[#fff] border-r-[#888] border-b-[#888] border-l-[#fff] bg-[#CCCCCC] font-mono text-lg font-bold text-[#333]">
-                42
-              </div>
-              <span className="mt-2 flex items-center justify-center bg-[#FFF]/40 px-2 text-xl text-black">
-                Calc
-              </span>
-            </div>
-
-            {/* Pong desktop icon */}
-            <div
-              onClick={() => setPongIsOpen(true)}
-              onDoubleClick={() => setPongIsOpen(true)}
-              tabIndex={0}
-              className="focus:outline-indigo-grey m-2 flex h-20 w-20 cursor-pointer flex-col items-center justify-center bg-transparent hover:brightness-75 hover:filter focus:outline-1 focus:brightness-50 focus:outline-dashed"
-            >
-              <div className="flex h-10 w-10 items-center justify-center border-[1px] border-t-[#fff] border-r-[#888] border-b-[#888] border-l-[#fff] bg-[#1a1a2e] font-mono text-xs font-bold text-[#CCCCCC]">
-                PONG
-              </div>
-              <span className="mt-2 flex items-center justify-center bg-[#FFF]/40 px-2 text-xl text-black">
-                Pong
-              </span>
-            </div>
+            <Shortcut
+              image={calcIcon}
+              title="Calc"
+              action={() => setCalcIsOpen(true)}
+            />
+            <Shortcut
+              image={pongIcon}
+              title="Pong"
+              action={() => setPongIsOpen(true)}
+            />
 
             {modalIsOpen && <ProjectsModal closeModal={closeModal} />}
             {githubModalIsOpen && <GitHubModal closeModal={closeGithubModal} />}

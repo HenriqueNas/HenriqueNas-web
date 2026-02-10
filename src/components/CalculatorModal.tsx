@@ -101,8 +101,8 @@ export default function CalculatorModal({
         height: initialSize.height,
         width: initialSize.width,
       }}
-      className={`border-[1px] border-[#262626] ${
-        isDragging ? '!cursor-grabbing' : '!cursor-grab'
+      className={`border border-[#262626] ${
+        isDragging ? 'cursor-grabbing!' : 'cursor-grab!'
       } !active:cursor-grabbing`}
       bounds="parent"
       resizeHandleClasses={{
@@ -116,7 +116,7 @@ export default function CalculatorModal({
         right: '!cursor-colResize',
       }}
     >
-      <div className="flex h-full flex-col border-[1px] border-gray-400 bg-[#CCCCCC] p-1">
+      <div className="flex h-full flex-col border border-gray-400 bg-[#CCCCCC] p-1">
         {/* Title bar */}
         <div className="flex h-6 flex-row items-center justify-between gap-1 p-1">
           <_Square />
@@ -129,12 +129,12 @@ export default function CalculatorModal({
         </div>
 
         {/* Display */}
-        <div className="mt-1 !cursor-default overflow-hidden border-[2px] border-t-[#888] border-r-[#fff] border-b-[#fff] border-l-[#888] bg-white px-2 py-1 text-right font-mono text-2xl select-all">
+        <div className="mt-1 cursor-default! overflow-hidden border-2 border-t-[#888] border-r-white border-b-white border-l-[#888] bg-white px-2 py-1 text-right font-mono text-2xl select-all">
           {display}
         </div>
 
         {/* Buttons */}
-        <div className="mt-1 grid flex-1 !cursor-default grid-cols-4 gap-[2px]">
+        <div className="mt-1 grid flex-1 cursor-default! grid-cols-4 gap-0.5">
           <_Btn label="C" onClick={clearAll} variant="top" />
           <_Btn label="+/-" onClick={toggleSign} variant="top" />
           <_Btn label="%" onClick={handlePercent} variant="top" />
@@ -228,10 +228,10 @@ function _Square({
   return (
     <div
       onClick={onClick}
-      className="h-4 w-4 cursor-pointer border-[1px] border-t-[#262626] border-l-[#262626] bg-gradient-to-br from-[#9A9A9A] to-[#F1F1F1]"
+      className="h-4 w-4 cursor-pointer border border-t-[#262626] border-l-[#262626] bg-linear-to-br from-[#9A9A9A] to-[#F1F1F1]"
     >
-      <div className="h-full border-[1px] border-[#262626]">
-        <div className="flex h-full flex-col border-[1px] border-r-[#262626] border-b-[#262626]">
+      <div className="h-full border border-[#262626]">
+        <div className="flex h-full flex-col border border-r-[#262626] border-b-[#262626]">
           {children}
         </div>
       </div>
@@ -242,9 +242,9 @@ function _Square({
 function _Close({ onClick }: { onClick?: () => void }) {
   return (
     <_Square onClick={onClick}>
-      <div className="relative left-[-2px] flex h-4 w-3 flex-col items-center justify-center gap-[2px]">
-        <div className="h-[1px] w-full bg-[#262626]" />
-        <div className="h-[1px] w-full bg-[#262626]" />
+      <div className="relative -left-0.5 flex h-4 w-3 flex-col items-center justify-center gap-0.5">
+        <div className="h-px w-full bg-[#262626]" />
+        <div className="h-px w-full bg-[#262626]" />
       </div>
     </_Square>
   );
@@ -252,12 +252,12 @@ function _Close({ onClick }: { onClick?: () => void }) {
 
 function _Stripe() {
   return (
-    <div className="flex h-4 flex-grow flex-col justify-evenly bg-[#ddd]">
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
-      <div className="h-[2px] bg-[#999999]" />
+    <div className="flex h-4 grow flex-col justify-evenly bg-[#ddd]">
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
+      <div className="h-0.5 bg-[#999999]" />
     </div>
   );
 }
