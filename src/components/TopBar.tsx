@@ -1,17 +1,27 @@
 'use client';
 
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
 
 import left from '../assets/top_bar/left.svg';
 import right from '../assets/top_bar/right.svg';
-import apple from '../assets/top_bar/apple-logo.png';
+import appleLogo from '../assets/icons/Menu bar/Apple logo.png';
+import calcIcon from '../assets/icons/Menu bar/Calculator.png';
+import finderIcon from '../assets/icons/Menu bar/Finder.png';
+import favoritesIcon from '../assets/icons/Menu bar/Favorites.png';
+import recentAppsIcon from '../assets/icons/Menu bar/Recent applications.png';
+import recentDocsIcon from '../assets/icons/Menu bar/Recent documents.png';
+import sherlockIcon from '../assets/icons/Menu bar/Sherlock 2.0.png';
+import keyCapsIcon from '../assets/icons/Menu bar/Key caps.png';
+import scrapbookIcon from '../assets/icons/Menu bar/Scrapbook.png';
+import stickiesIcon from '../assets/icons/Menu bar/Stickies.png';
 
 type _ClassName = HTMLAttributes<HTMLDivElement>['className'];
 
 type MenuItem =
   | {
       label: string;
+      icon?: StaticImageData;
       shortcut?: string;
       disabled?: boolean;
       action?: () => void;
@@ -76,6 +86,7 @@ export default function TopBar({
   const utilitiesMenuItems: MenuItem[] = [
     {
       label: 'Calculator',
+      icon: calcIcon,
       action: () => {
         onOpenCalc?.();
         closeMenu();
@@ -83,6 +94,7 @@ export default function TopBar({
     },
     {
       label: 'Pong',
+      icon: keyCapsIcon,
       action: () => {
         onOpenPong?.();
         closeMenu();
@@ -90,6 +102,7 @@ export default function TopBar({
     },
     {
       label: 'GitHub',
+      icon: finderIcon,
       action: () => {
         onOpenGithub?.();
         closeMenu();
@@ -98,6 +111,7 @@ export default function TopBar({
     'separator',
     {
       label: copied ? 'Copied!' : 'Random Password',
+      icon: sherlockIcon,
       action: handleCopyPassword,
     },
   ];
@@ -105,6 +119,7 @@ export default function TopBar({
   const aboutMenuItems: MenuItem[] = [
     {
       label: 'Developer: HenriqueNas',
+      icon: stickiesIcon,
       action: () => {
         window.open('https://github.com/HenriqueNas', '_blank');
         closeMenu();
@@ -113,6 +128,7 @@ export default function TopBar({
     'separator',
     {
       label: 'LinkedIn',
+      icon: favoritesIcon,
       action: () => {
         window.open('https://www.linkedin.com/in/henriquenas-dev', '_blank');
         closeMenu();
@@ -120,6 +136,7 @@ export default function TopBar({
     },
     {
       label: 'Source Code on GitHub',
+      icon: scrapbookIcon,
       action: () => {
         window.open('https://github.com/HenriqueNas/HenriqueNas-web', '_blank');
         closeMenu();
@@ -127,12 +144,12 @@ export default function TopBar({
     },
     'separator',
     { label: 'Built with Next.js', disabled: true },
-    { label: 'Version 0.1.1', disabled: true },
+    { label: 'Version 0.2.0', disabled: true },
   ];
 
   const viewMenuItems: MenuItem[] = [
-    { label: 'Show Icons' },
-    { label: 'Show Grid', disabled: true },
+    { label: 'Show Icons', icon: recentAppsIcon },
+    { label: 'Show Grid', icon: recentDocsIcon, disabled: true },
     'separator',
     { label: 'Zoom In', shortcut: '⌘+', disabled: true },
     { label: 'Zoom Out', shortcut: '⌘-', disabled: true },
@@ -145,7 +162,7 @@ export default function TopBar({
   return (
     <nav
       ref={navRef}
-      className="relative z-50 flex h-6 w-full items-center border-t-[1px] border-b-2 border-black border-t-white bg-[#ddd] before:border-b-2 before:border-white"
+      className="relative z-50 flex h-6 w-full items-center border-t border-b-2 border-black border-t-white bg-[#ddd] before:border-b-2 before:border-white"
     >
       <Image src={left} alt="" className="absolute top-0 left-0" />
       <Image src={right} alt="" className="absolute top-0 right-0" />
@@ -153,7 +170,7 @@ export default function TopBar({
         className="ml-3"
         onClick={() => new Audio('/macbook-startup.mp3').play()}
       >
-        <Image src={apple} alt="" />
+        <Image src={appleLogo} alt="" width={16} height={16} />
       </_TopBarItem>
       <_TopBarDropdown
         label="Utilities"
@@ -202,24 +219,35 @@ function _TopBarDropdown({
         {label}
       </div>
       {isOpen && (
-        <div className="absolute top-6 left-0 min-w-[200px] border-[1px] border-t-[#fff] border-r-[#555] border-b-[#555] border-l-[#fff] bg-[#CCCCCC] py-[2px] shadow-[2px_2px_0px_#555]">
+        <div className="absolute top-6 left-0 min-w-50 border border-t-white border-r-[#555] border-b-[#555] border-l-white bg-[#CCCCCC] py-0.5 shadow-[2px_2px_0px_#555]">
           {items.map((item, i) =>
             item === 'separator' ? (
               <div
                 key={`sep-${i}`}
-                className="mx-1 my-[2px] border-t-[1px] border-b-[1px] border-t-[#888] border-b-[#fff]"
+                className="mx-1 my-0.5 border-t border-b border-t-[#888] border-b-white"
               />
             ) : (
               <div
                 key={item.label}
                 onClick={!item.disabled ? item.action : undefined}
-                className={`flex items-center justify-between gap-4 px-4 py-[2px] ${
+                className={`flex items-center justify-between gap-4 px-4 py-0.5 ${
                   item.disabled
                     ? 'cursor-default text-[#888]'
                     : 'cursor-default hover:bg-[#333399] hover:text-white'
                 } `}
               >
-                <span>{item.label}</span>
+                <span className="flex items-center gap-2">
+                  {item.icon && (
+                    <Image
+                      src={item.icon}
+                      alt=""
+                      width={16}
+                      height={16}
+                      className="inline-block"
+                    />
+                  )}
+                  {item.label}
+                </span>
                 {item.shortcut && (
                   <span className="text-[0.75em] opacity-70">
                     {item.shortcut}
