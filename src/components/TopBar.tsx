@@ -32,6 +32,7 @@ export interface TopBarProps {
   onOpenCalc?: () => void;
   onOpenPong?: () => void;
   onOpenGithub?: () => void;
+  onOpenWizard?: () => void;
 }
 
 function generatePassword(): string {
@@ -46,6 +47,7 @@ export default function TopBar({
   onOpenCalc,
   onOpenPong,
   onOpenGithub,
+  onOpenWizard,
 }: TopBarProps) {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -105,6 +107,14 @@ export default function TopBar({
       icon: finderIcon,
       action: () => {
         onOpenGithub?.();
+        closeMenu();
+      },
+    },
+    {
+      label: 'Mobile XP',
+      icon: scrapbookIcon,
+      action: () => {
+        onOpenWizard?.();
         closeMenu();
       },
     },
