@@ -2,30 +2,31 @@
 
 import CalculatorModal from '@/components/CalculatorModal';
 import GitHubModal from '@/components/GitHubModal';
+import MobileExperiencesWizard from '@/components/MobileExperiencesWizard';
 import PongModal from '@/components/PongModal';
-import ProjectsModal from '@/components/ProjectsModal';
 import Shortcut from '@/components/Shortcut';
 import TopBar from '@/components/TopBar';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useRef, useState } from 'react';
 
-import projects from '../assets/shortcuts/apple-folder.png';
+import calcIcon from '../assets/icons/Applications/Calculator.png';
+import pongIcon from '../assets/icons/Applications/Key caps.png';
+import mobileIcon from '../assets/icons/Applications/Scrapbook.png';
 import figma from '../assets/shortcuts/figma.png';
 import github from '../assets/shortcuts/github.png';
 import web from '../assets/shortcuts/globe.png';
 import linkedin from '../assets/shortcuts/linkedin.png';
 import resume from '../assets/shortcuts/sheet.png';
 import youtube from '../assets/shortcuts/youtube.png';
-import calcIcon from '../assets/icons/Applications/Calculator.png';
-import pongIcon from '../assets/icons/Applications/Key caps.png';
 
 export default function Home() {
   const ref = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [githubModalIsOpen, setGithubModalIsOpen] = useState(!isMobile);
+  const [githubModalIsOpen, setGithubModalIsOpen] = useState(false);
   const [calcIsOpen, setCalcIsOpen] = useState(false);
   const [pongIsOpen, setPongIsOpen] = useState(false);
+  const [wizardIsOpen, setWizardIsOpen] = useState(!isMobile);
 
   const closeModal = () => setIsOpen(false);
 
@@ -43,8 +44,6 @@ export default function Home() {
 
   const openGoogle = () => window.open('https://www.google.com/', '_blank');
 
-  const openProjects = () => setIsOpen(true);
-
   const openResume = () =>
     window.open('/resumes/resume - Henrique Nas - en_US.pdf', '_blank');
 
@@ -61,6 +60,7 @@ export default function Home() {
           onOpenCalc={() => setCalcIsOpen(true)}
           onOpenPong={() => setPongIsOpen(true)}
           onOpenGithub={openGithub}
+          onOpenWizard={() => setWizardIsOpen(true)}
         />
       )}
       <main
@@ -72,7 +72,6 @@ export default function Home() {
         }
       >
         <Shortcut image={github} title="Github" action={openGithub} />
-        <Shortcut image={projects} title="Projects" action={openProjects} />
         <Shortcut image={resume} title="Resume" action={openResume} />
         <Shortcut image={linkedin} title="LinkedIn" action={openLinkedIn} />
         <Shortcut image={youtube} title="YouTube" action={openYouTube} />
@@ -91,14 +90,23 @@ export default function Home() {
               title="Pong"
               action={() => setPongIsOpen(true)}
             />
+            <Shortcut
+              image={mobileIcon}
+              title="Mobile XP"
+              action={() => setWizardIsOpen(true)}
+            />
 
-            {modalIsOpen && <ProjectsModal closeModal={closeModal} />}
             {githubModalIsOpen && <GitHubModal closeModal={closeGithubModal} />}
             {calcIsOpen && (
               <CalculatorModal closeModal={() => setCalcIsOpen(false)} />
             )}
             {pongIsOpen && (
               <PongModal closeModal={() => setPongIsOpen(false)} />
+            )}
+            {wizardIsOpen && (
+              <MobileExperiencesWizard
+                closeModal={() => setWizardIsOpen(false)}
+              />
             )}
           </>
         )}
